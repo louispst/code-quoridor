@@ -88,6 +88,3 @@ int main() {
             printf("Mouvement invalide !\n");
         }
     }
-
-    return 0;
-}
