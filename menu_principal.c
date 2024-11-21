@@ -52,14 +52,6 @@ void afficher_aide() {
     printf("4. Les murs doivent laisser un chemin accessible a tous.\n");
 }
 
-// Fonction pour afficher les scores
-void afficher_scores(t_joueur joueurs[], int nombre_joueurs) {
-    printf("---- Scores des Joueurs ----\n");
-    for (int i = 0; i < nombre_joueurs; i++) {
-        printf("Joueur %d (%s) : %d points\n", i + 1, joueurs[i].prenom, joueurs[i].score);
-    }
-}
-
 int choisir_joueur_au_hasard(int nombre_joueurs) {
     srand(time(NULL));
     return rand() % nombre_joueurs;
