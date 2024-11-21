@@ -54,6 +54,17 @@ void afficher_scores(t_joueur joueurs[], int nombre_joueurs) {
         }
     }
 }
+void verifier_score(t_joueur *joueur) {
+    // Vérifier si le pion a atteint les coordonnées finales
+    if ((joueur->pion == 'A' && joueur->position_x == 5 && joueur->position_y == 9) ||
+        (joueur->pion == 'B' && joueur->position_x == 5 && joueur->position_y == 1) ||
+        (joueur->pion == 'C' && joueur->position_x == 1 && joueur->position_y == 5) ||
+        (joueur->pion == 'D' && joueur->position_x == 9 && joueur->position_y == 5)) {
+        joueur->score += 1; // Ajouter 1 au score
+        printf("BRAVO, %s a atteint sa destination finale ! Score : %d\n", joueur->prenom, joueur->score);
+    }
+}
+
 void charger_scores(t_joueur joueurs[], int *nombre_joueurs) {
     FILE *fichier = fopen("scores.txt", "r");  		// Ouvrir le fichier en lecture
     if (fichier == NULL) return;  		// Si le fichier n'existe pas, on sort de la fonction
