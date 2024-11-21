@@ -28,6 +28,11 @@ void demander_nombre_de_joueurs(int *nombre_joueurs, t_joueur joueurs[]) {
     }
 }
 
+int choisir_joueur_au_hasard(int nombre_joueurs) {
+    srand(time(NULL));
+    return rand() % nombre_joueurs;
+}
+
 // Fonction pour choisir les pions des joueurs
 void choisir_pions(t_joueur joueurs[], int nombre_joueurs) {
     char choix_pion;
