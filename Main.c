@@ -137,8 +137,10 @@ void afficher_scores(t_joueur joueurs[], int nombre_joueurs) {
 }
 
 // Fonction pour passer au joueur suivant
-int joueur_suivant(int joueur_actuel, int nombre_joueurs) {
-    return (joueur_actuel + 1) % nombre_joueurs;
+void passer_au_suivant(t_joueur joueurs[], int *joueur_courant, int nombre_joueurs) {
+    *joueur_courant = (*joueur_courant + 1) % nombre_joueurs;  // Passer au joueur suivant
+    printf("\nC'est au tour de %s de jouer !\n", joueurs[*joueur_courant].prenom);
+    afficher_menu_joueur();
 }
 
 // Fonction pour annuler un coup
@@ -155,6 +157,56 @@ void afficher_menu_joueur() {
     printf("3. Passer son tour\n");
     printf("4. Annuler le coup\n");
     printf("Entrez votre choix: ");
+}
+
+// Fonction pour afficher le menu des directions
+void afficher_menu_direction() {
+    printf("\nOù voulez-vous aller ?\n");
+    printf("1. Aller en haut\n");
+    printf("2. Aller en bas\n");
+    printf("3. Aller à gauche\n");
+    printf("4. Aller à droite\n");
+    printf("Entrez votre choix : ");
+}
+
+// Fonction pour déplacer le pion du joueur
+void deplacer_pion(t_joueur *joueur) {
+    int direction;
+    afficher_menu_direction();
+    scanf("%d", &direction);
+
+    switch (direction) {
+        case 1:
+            if (joueur->position_y > 0) {
+                joueur->position_y--;
+            } else {
+                printf("Vous ne pouvez pas aller plus haut !\n");
+            }
+            break;
+        case 2:
+            if (joueur->position_y < TAILLE_PLATEAU - 1) {
+                joueur->position_y++;
+            } else {
+                printf("Vous ne pouvez pas aller plus bas !\n");
+            }
+            break;
+        case 3:
+            if (joueur->position_x > 0) {
+                joueur->position_x--;
+            } else {
+                printf("Vous ne pouvez pas aller plus à gauche !\n");
+            }
+            break;
+        case 4:
+            if (joueur->position_x < TAILLE_PLATEAU - 1) {
+                joueur->position_x++;
+            } else {
+                printf("Vous ne pouvez pas aller plus à droite !\n");
+            }
+            break;
+        default:
+            printf("Choix invalide !\n");
+    }
 }
 
 int main() {
