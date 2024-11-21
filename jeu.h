@@ -4,6 +4,7 @@
 void deplacer_pion(t_joueur *joueur);
 void afficher_scores(t_joueur joueurs[], int nombre_joueurs);
 void charger_scores(t_joueur joueurs[], int *nombre_joueurs);
+void verifier_score(t_joueur *joueur);
 void reinitialiser_partie(t_joueur joueurs[], int nombre_joueurs, int plateau[TAILLE_PLATEAU][TAILLE_PLATEAU]);
 void sauvegarder_scores(t_joueur joueurs[], int nombre_joueurs);
 void verifier_fin_de_partie(t_joueur joueurs[], int nombre_joueurs);
