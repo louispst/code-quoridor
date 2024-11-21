@@ -1,5 +1,6 @@
 // Implémente les fonctions définies dans plateau.h, gérant la création, l'affichage et la mise à jour de l'état du plateau de jeu. Pour Louis
 // Fonction pour afficher le plateau
+// Fonction pour afficher le plateau
 void afficher_plateau(t_joueur joueurs[], int nombre_joueurs) {
     printf("    ");
     for (int i = 1; i <= TAILLE_PLATEAU; i++) {
@@ -14,7 +15,26 @@ void afficher_plateau(t_joueur joueurs[], int nombre_joueurs) {
             int joueur_present = 0;
             for (int i = 0; i < nombre_joueurs; i++) {
                 if (x == joueurs[i].position_x && y == joueurs[i].position_y) {
-                    printf(" %c |", joueurs[i].pion);
+                    // Appliquer une couleur spécifique à chaque joueur
+                    switch (i) {
+                        case 0: // Premier joueur en rouge
+                            Color(12, 0);
+                        break;
+                        case 1: // Deuxième joueur en bleu
+                            Color(9, 0);
+                        break;
+                        case 2: // Troisième joueur en vert
+                            Color(10, 0);
+                        break;
+                        case 3: // Quatrième joueur en jaune
+                            Color(14, 0);
+                        break;
+                        default:
+                            Color(7, 0); // Par défaut en blanc
+                    }
+                    printf(" %c ", joueurs[i].pion);
+                    Color(7, 0); // Réinitialiser la couleur
+                    printf("|");
                     joueur_present = 1;
                     break;
                 }
