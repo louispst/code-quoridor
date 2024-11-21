@@ -39,3 +39,18 @@ void deplacer_pion(t_joueur *joueur) {
             printf("Choix invalide !\n");
     }
 }
+// Fonction pour afficher les scores et informations des joueurs
+void afficher_scores(t_joueur joueurs[], int nombre_joueurs) {
+    // Vérification si des joueurs sont définis
+    if (nombre_joueurs <= 0) {
+        printf("Aucun joueur n'a été défini. Veuillez lancer une partie.\n");
+        return;
+
+        printf("---- Scores et Informations des Joueurs ----\n");
+        printf("| %10s | %10s | %15s | %5s |\n", "Joueur", "Score", "Murs Restants", "Pion");  //affichage du joueur, du score, des murs restants a chaque joueurs et du pion
+        for (int i = 0; i < nombre_joueurs; i++) {
+            printf("| %10s | %10d | %15d | %5c |\n",
+                   joueurs[i].prenom, joueurs[i].score, joueurs[i].murs_restants, joueurs[i].pion);
+        }
+    }
+}
