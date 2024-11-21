@@ -64,6 +64,10 @@ void afficher_plateau(t_joueur joueurs[], int nombre_joueurs) {
     }
     printf("   +---+---+---+---+---+---+---+---+---+\n");
 }
+int choisir_joueur_au_hasard(int nombre_joueurs) {
+    srand(time(NULL));
+    return rand() % nombre_joueurs;
+}
 
 // Fonction pour demander le nombre de joueurs et leurs prénoms
 void demander_nombre_de_joueurs(int *nombre_joueurs, t_joueur joueurs[]) {
@@ -219,6 +223,7 @@ int main() {
     srand(time(NULL));
 
     while (1) {
+
         afficher_menu();
         scanf("%d", &choix);
 
@@ -230,9 +235,10 @@ int main() {
                 positionner_joueurs(joueurs, nombre_joueurs);
 
                 copier_etat(&etat_courant, &(EtatJeu){.joueurs = joueurs, .nombre_joueurs = nombre_joueurs});
-                joueur_courant = rand() % nombre_joueurs;
+                joueur_courant = choisir_joueur__au_hasard(nombre_joueur)
 
                 afficher_plateau(joueurs, nombre_joueurs);
+                printf("\nla partie commence!\n")
 
                 while (1) {
                     printf("C'est au tour de %s de jouer !\n", joueurs[joueur_courant].prenom);
@@ -241,7 +247,19 @@ int main() {
                     scanf("%d", &choix);
 
                     if (choix == 1) {
-                        // Déplacer le pion (à implémenter)
+                        // Déplacer le pion 
+                    printf("\nC'est au tour de %s de jouer !\n", joueurs[joueur_courant].prenom);
+                    afficher_menu_joueur();
+                    scanf("%d", &choix);
+
+                    if (choix == 1) {
+                        deplacer_pion(&joueurs[joueur_courant]);
+                        afficher_plateau(joueurs, nombre_joueurs);
+                    }
+
+                    passer_au_suivant(joueurs, &joueur_courant, nombre_joueurs);  // Passer au joueur suivant
+                }
+                break;
                     } else if (choix == 2) {
                         // Poser une barrière (à implémenter)
                     } else if (choix == 3) {
