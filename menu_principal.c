@@ -60,3 +60,8 @@ void afficher_scores(t_joueur joueurs[], int nombre_joueurs) {
     }
 }
 
+int choisir_joueur_au_hasard(int nombre_joueurs) {
+    srand(time(NULL));
+    return rand() % nombre_joueurs;
+}
+
