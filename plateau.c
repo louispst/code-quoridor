@@ -1,7 +1,29 @@
-// Implémente les fonctions définies dans plateau.h, gérant la création, l'affichage et la mise à jour de l'état du plateau de jeu. Pour Louis
-// Fonction pour afficher le plateau
-// Fonction pour afficher le plateau
-void afficher_plateau(t_joueur joueurs[], int nombre_joueurs) {
+// Fonction pour positionner les joueurs sur le plateau
+void positionner_joueurs(t_joueur joueurs[], int nombre_joueurs) {
+    if (nombre_joueurs == 2) {
+        joueurs[0].position_y = 0;
+        joueurs[0].position_x = TAILLE_PLATEAU / 2;
+
+        joueurs[1].position_y = TAILLE_PLATEAU - 1;
+        joueurs[1].position_x = TAILLE_PLATEAU / 2;
+
+    } else if (nombre_joueurs == 4) {
+
+        joueurs[0].position_y = 0;
+        joueurs[0].position_x = 4;
+
+        joueurs[1].position_y = 8;
+        joueurs[1].position_x = 4;
+
+        joueurs[2].position_y = 4;
+        joueurs[2].position_x = 0;
+
+        joueurs[3].position_y = 4;
+        joueurs[3].position_x = 8;
+
+    }
+}
+void afficher_plateau(t_joueur joueurs[], int nombre_joueurs, int plateau_barriere[TAILLE_PLATEAU][TAILLE_PLATEAU]) {
     printf("    ");
     for (int i = 1; i <= TAILLE_PLATEAU; i++) {
         printf(" %d  ", i);
@@ -39,34 +61,16 @@ void afficher_plateau(t_joueur joueurs[], int nombre_joueurs) {
                     break;
                 }
             }
-            if (!joueur_present) {
+            if (!joueur_present && plateau_barriere[y][x]==1) {
+                printf(" B |");
+            }
+
+            else if (!joueur_present ) {
                 printf(" . |");
             }
         }
         printf("\n");
     }
     printf("   +---+---+---+---+---+---+---+---+---+\n");
-}
-
-// Fonction pour positionner les joueurs
-void positionner_joueurs(t_joueur joueurs[], int nombre_joueurs) {
-    if (nombre_joueurs == 2) {
-        joueurs[0].position_x = TAILLE_PLATEAU / 2;
-        joueurs[0].position_y = 0;
-
-        joueurs[1].position_x = TAILLE_PLATEAU / 2;
-        joueurs[1].position_y = TAILLE_PLATEAU - 1;
-    } else if (nombre_joueurs == 4) {
-        joueurs[0].position_x = 4;
-        joueurs[0].position_y = 0;
-
-        joueurs[1].position_x = 4;
-        joueurs[1].position_y = 8;
-
-        joueurs[2].position_x = 0;
-        joueurs[2].position_y = 4;
-
-        joueurs[3].position_x = 8;
-        joueurs[3].position_y = 4;
-    }
+    afficher_barrieres_restantes(joueurs, nombre_joueurs);
 }
