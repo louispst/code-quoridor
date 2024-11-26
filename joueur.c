@@ -37,3 +37,79 @@ void passer_au_suivant(t_joueur joueurs[], int *joueur_courant, int nombre_joueu
     afficher_menu_joueur();
 }
 
+void deplacer_pion(t_joueur *joueur, int plateau_barriere[TAILLE_PLATEAU][TAILLE_PLATEAU], int nombre_joueurs, t_joueur joueurs[]) {
+    int direction;
+    int deplacement_valide = 0;
+
+    while (!deplacement_valide) {
+        afficher_menu_direction();
+        scanf("%d", &direction);
+
+        switch (direction) {
+            case 1:
+                if (joueur->position_y > 0 && plateau_barriere[joueur->position_y - 1][joueur->position_x] == 0) {
+                    // Vérifier qu'il n'y a pas d'autre joueur sur la case
+                    int joueur_present = 0;
+                    for (int i = 0; i < nombre_joueurs; i++) {
+                        if (joueur->position_y - 1 == joueurs[i].position_y && joueur->position_x == joueurs[i].position_x) {
+                            joueur_present++;
+                        }
+                    }
+                    if (joueur_present == 0) {
+                        joueur->position_y--; // Déplacement valide
+                        deplacement_valide = 1;
+                    } else {
+                        printf("Un autre joueur est deja sur cette case !\n");
+                    }
+                } else {
+                    printf("Vous ne pouvez pas aller plus haut !\n");
+                }
+                break;
+
+            case 2:
+                if (joueur->position_y < TAILLE_PLATEAU - 1 && plateau_barriere[joueur->position_y + 1][joueur->position_x] == 0) {
+                    joueur->position_y++;
+                    deplacement_valide = 1;
+                } else {
+                    printf("Vous ne pouvez pas aller plus bas !\n");
+                }
+                break;
+
+            case 3:
+                if (joueur->position_x > 0 && plateau_barriere[joueur->position_y][joueur->position_x - 1] == 0) {
+                    joueur->position_x--;
+                    deplacement_valide = 1;
+                } else {
+                    printf("Vous ne pouvez pas aller plus a gauche !\n");
+                }
+                break;
+
+            case 4:
+                if (joueur->position_x < TAILLE_PLATEAU - 1 && plateau_barriere[joueur->position_y][joueur->position_x + 1] == 0) {
+                    joueur->position_x++;
+                    deplacement_valide = 1;
+                } else {
+                    printf("Vous ne pouvez pas aller plus a droite !\n");
+                }
+                break;
+
+            default:
+                printf("Choix invalide !\n");
+        }
+
+        if (!deplacement_valide) {
+            direction = faire_rejouer(); // Appeler la fonction pour obtenir une nouvelle direction
+        }
+    }
+}
+
+int faire_rejouer() {
+    int nouvelle_direction;
+    printf("Deplacement invalide. Veuillez choisir une nouvelle direction :\n");
+    afficher_menu_direction(); // On réaffiche le menu des directions
+    scanf("%d", &nouvelle_direction);
+    return nouvelle_direction;
+}
+
+
+
